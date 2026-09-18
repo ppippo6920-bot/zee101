@@ -13,6 +13,7 @@ import {
   Sparkles,
   ExternalLink,
   ChevronRight,
+  Dices,
 } from 'lucide-react';
 import { DayOfWeek, TeamMember, HandoverItem, BotCallLog } from '../types';
 
@@ -26,6 +27,7 @@ interface DashboardProps {
   onOpenBotSimulator: () => void;
   onNavigateTab: (tab: 'dashboard' | 'calendar' | 'handover' | 'preclear' | 'bot') => void;
   onSelectUser: (user: TeamMember) => void;
+  onOpenLotteryModal?: () => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({
@@ -38,6 +40,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onOpenBotSimulator,
   onNavigateTab,
   onSelectUser,
+  onOpenLotteryModal,
 }) => {
   // Members working today vs off today
   const offMembersToday = allMembers.filter((m) => m.offDay === currentDay);
@@ -270,13 +273,25 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </p>
           </div>
 
-          <button
-            onClick={() => onNavigateTab('calendar')}
-            className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center self-start sm:self-center"
-          >
-            <span>전체 캘린더 보기</span>
-            <ChevronRight className="w-4 h-4 ml-0.5" />
-          </button>
+          <div className="flex items-center space-x-2 self-start sm:self-center">
+            {onOpenLotteryModal && (
+              <button
+                onClick={onOpenLotteryModal}
+                className="px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-black flex items-center space-x-1.5 shadow-xs transition-all hover:shadow-md cursor-pointer"
+              >
+                <Dices className="w-3.5 h-3.5 text-amber-300" />
+                <span>월·금 휴무 추첨 게임 🎲</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => onNavigateTab('calendar')}
+              className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center py-1.5 px-2 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <span>전체 캘린더</span>
+              <ChevronRight className="w-4 h-4 ml-0.5" />
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">

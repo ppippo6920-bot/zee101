@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   ChevronRight,
   UserCheck,
+  Dices,
 } from 'lucide-react';
 import { DayOfWeek, TeamMember, ShiftGroup } from '../types';
 
@@ -20,6 +21,7 @@ interface CalendarViewProps {
   onSelectDay: (day: DayOfWeek) => void;
   onSelectUser: (user: TeamMember) => void;
   onSwapRequest: (member1Id: string, member2Id: string) => void;
+  onOpenLotteryModal?: () => void;
 }
 
 export const CalendarView: React.FC<CalendarViewProps> = ({
@@ -29,6 +31,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   onSelectDay,
   onSelectUser,
   onSwapRequest,
+  onOpenLotteryModal,
 }) => {
   const [filterGroup, setFilterGroup] = useState<'ALL' | 'MY_PAIR' | 'MON_OFF' | 'FRI_OFF'>('ALL');
   const [isSwapModalOpen, setIsSwapModalOpen] = useState(false);
@@ -133,11 +136,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             {/* Swap Request Button */}
             <button
               onClick={() => setIsSwapModalOpen(true)}
-              className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-xs transition-colors"
+              className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-xs transition-colors cursor-pointer"
             >
               <ArrowLeftRight className="w-3.5 h-3.5 text-blue-400" />
               <span>휴무일 맞교환 신청</span>
             </button>
+
+            {/* Lottery Game Button */}
+            {onOpenLotteryModal && (
+              <button
+                onClick={onOpenLotteryModal}
+                className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-black flex items-center space-x-1.5 shadow-xs transition-all hover:shadow-md cursor-pointer"
+              >
+                <Dices className="w-3.5 h-3.5 text-amber-300" />
+                <span>랜덤 추첨 게임 🎲</span>
+              </button>
+            )}
           </div>
         </div>
 
