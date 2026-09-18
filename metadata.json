@@ -1,0 +1,6 @@
+{
+  "name": "주4일제 스마트 워크 플랫폼",
+  "description": "월·금 분산 휴무 및 1:1 짝꿍(Buddy) 인수인계로 업무 공백을 100% 방지하는 제로갭 스마트 행정 협업 플랫폼",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
